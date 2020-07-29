@@ -1,0 +1,49 @@
+<!--
+<div class="loginform">
+  <form [formGroup]="loginForm" class="container">
+  <div><span style="padding-right: 10px; float: left">UserName:</span><span class="textinput"><input formControlName="userName" type="text"></span></div>
+    <div><span style="padding-right: 10px; float: left">Password:</span><span class="textinput"><input class="textinput" formControlName="password" type="text"></span></div>
+  <div class="updatebutton"><button (click)="updateName()">Update Name</button></div>
+  <div *ngIf="loginForm.get('userName').value">
+    Value : {{loginForm.get('userName').value}}
+  </div>
+  </form>
+</div>-->
+<div class="loginform">
+  <form [formGroup]="loginForm" class="container">
+    <div style="font-family: 'Arial Black'; font-style: italic; font-weight: bold;padding-bottom: 30px;">Reactive Login form</div>
+    <div class="textinput"><span class="label">UserName:</span><span class="inputbox"><input id="username" formControlName="userName" required="true" type="text"></span></div>
+    <div *ngIf="this.loginForm.get('userName').invalid && (this.loginForm.get('userName').dirty || this.loginForm.get('userName').touched)"
+         class="error">
+      <div *ngIf="this.loginForm.get('userName').errors.required">
+        Username is required.
+      </div>
+      <div *ngIf="this.loginForm.get('userName').errors.minlength">
+        Username must be at least 4 characters long.
+      </div>
+      <div *ngIf="this.loginForm.get('userName').errors.maxlength">
+        Username must not be more than 6 characters long.
+      </div>
+      <div *ngIf="this.loginForm.get('userName').hasError('RegexMatcherError')">
+        {{this.customErrormsg}}
+      </div>
+      <div *ngIf="this.loginForm.get('userName').hasError('ForbiddenNameError')">
+        Username must not contain the forbidden name : Ash
+      </div>
+    </div>
+    <div class="textinput"><span class="label">Password:</span><span class="inputbox"><input formControlName="password" type="text"></span></div>
+    <div *ngIf="this.loginForm.get('password').invalid && (this.loginForm.get('password').dirty || this.loginForm.get('password').touched)"
+         class="error">
+      <div *ngIf="this.loginForm.get('password').errors.required">
+        Password is required.
+      </div>
+      <div *ngIf="this.loginForm.get('password').errors.minlength">
+        Password must be at least 6 characters long.
+      </div>
+      <div *ngIf="this.loginForm.get('password').errors.maxlength">
+        Password must not be more than 10 characters long.
+      </div>
+    </div>
+    <div class="updatebutton"><button [disabled]="!loginForm.valid" (click)="onSubmit()">Submit</button></div>
+  </form>
+</div>
